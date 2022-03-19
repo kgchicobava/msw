@@ -13,7 +13,7 @@ const Button = {
 		lineHeight: "22px",
 		borderRadius: "8px",
 		paddingTop: "2px",
-		color: mode("orange", "crimson")(props),
+		// color: mode("orange", "crimson")(props),
 	}),
 	sizes: {
 		md: {
@@ -26,6 +26,6 @@ const Button = {
 	},
 };
 
-const theme = extendTheme({ config, components: { Button } });
+const theme = extendTheme({ config });
 
 export default theme;

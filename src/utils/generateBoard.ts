@@ -8,12 +8,13 @@ export const generateBoard = (
 	numberOfMines: number,
 ): Cell[][] => {
 	const board: Cell[][] = [];
-	const mines = plantMines(numberOfMines, x, y);
+	// const mines = plantMines(numberOfMines, x, y);
 	for (let i = 0; i < x; i++) {
 		const row = [];
 		for (let j = 0; j < y; j++) {
 			row.push({
-				isMine: mines.some(elem => elem.x === i && elem.y === j),
+				// isMine: mines.some(elem => elem.x === i && elem.y === j),
+				isMine: false,
 				state: CellState.Available,
 				x: i,
 				y: j,
