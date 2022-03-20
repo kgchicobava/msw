@@ -20,6 +20,7 @@ import { ReactComponent as ThemeIcon } from "./assets/theme.svg";
 import { ReactComponent as MenuIcon } from "./assets/menu.svg";
 import { ReactComponent as ReplayIcon } from "./assets/replay.svg";
 import { plantMines } from "./utils/plantMines";
+import { useColor } from "./utils";
 
 let timerId: NodeJS.Timeout;
 
@@ -33,6 +34,8 @@ const App: React.FC = () => {
 		useState<DifficultyLevel>(defaultDifficulty);
 	const [victoryModalOpen, setVictoryModalOpen] = useState(false);
 	const [bombsPlanted, setBombsPlanted] = useState(false);
+
+	const colors = useColor();
 
 	const startGame = (level: DifficultyLevel) => {
 		setShowMines(false);
@@ -154,13 +157,15 @@ const App: React.FC = () => {
 		if (showMines && cell.isMine) {
 			return "#FF6060";
 		}
-		if (cell.state === CellState.Available || cell.number) {
-			return "white";
+		if (
+			cell.state === CellState.Available ||
+			cell.state === CellState.Flagged ||
+			cell.number
+		) {
+			return colors.availableCell;
 		}
-		if (cell.number && cell.number === 0) {
-			return "#EAEEEE";
-		}
-		return "";
+
+		return colors.emptyCell;
 	};
 
 	const { toggleColorMode } = useColorMode();
@@ -177,13 +182,14 @@ const App: React.FC = () => {
 					}}
 				/>
 			) : (
-				<Center h="100vh">
+				<Center h="100vh" bg={colors.background}>
 					<Box
-						bg="#C7D4D4"
+						bg={colors.primary}
 						maxW="90vw"
+						borderRadius="3px"
 						p="24px 30px"
 						position="relative"
-						boxShadow="0px 0px 20px #C7D4D4">
+						boxShadow={`0px 0px 20px ${colors.primary}`}>
 						<VStack position="absolute" left="-60px" top="0">
 							<IconButton
 								aria-label="Menu"
@@ -193,7 +199,8 @@ const App: React.FC = () => {
 								onClick={() => {
 									setGameStarted(false);
 								}}
-								background="#C7D4D5">
+								background={colors.primary}
+								boxShadow={`0px 0px 20px ${colors.primary}`}>
 								<MenuIcon />
 							</IconButton>
 							<IconButton
@@ -202,7 +209,8 @@ const App: React.FC = () => {
 								onClick={toggleColorMode}
 								h="50px"
 								w="50px"
-								background="#C7D4D5">
+								background={colors.primary}
+								boxShadow={`0px 0px 20px ${colors.primary}`}>
 								<ThemeIcon />
 							</IconButton>
 							{showMines && (
@@ -211,20 +219,21 @@ const App: React.FC = () => {
 									borderRadius="3px"
 									h="50px"
 									w="50px"
-									background="#C7D4D5"
+									background={colors.primary}
 									onClick={() => {
 										setMinesLeft(
 											difficultyLevel.numberOfMines,
 										);
 										startGame(difficultyLevel);
-									}}>
+									}}
+									boxShadow={`0px 0px 20px ${colors.primary}`}>
 									<ReplayIcon />
 								</IconButton>
 							)}
 						</VStack>
 						<HStack mb="30px">
 							<Center
-								bg="white"
+								bg={colors.availableCell}
 								h="50px"
 								w="100px"
 								borderRadius="2px">
@@ -239,7 +248,7 @@ const App: React.FC = () => {
 								</Text>
 							</Center>
 							<Center
-								bg="#EAEEEE"
+								bg={colors.emptyCell}
 								height="50px"
 								flex={1}
 								borderRadius="2px">
@@ -248,7 +257,7 @@ const App: React.FC = () => {
 									fontSize="25px"
 									fontFamily="Nunito-medium"
 									lineHeight="34px"
-									color="#141415"
+									color={colors.titleText}
 									onClick={ev =>
 										console.log(
 											ev.detail,
@@ -259,7 +268,7 @@ const App: React.FC = () => {
 								</Text>
 							</Center>
 							<Center
-								bg="white"
+								bg={colors.availableCell}
 								h="50px"
 								w="100px"
 								borderRadius="2px">
@@ -302,6 +311,7 @@ const App: React.FC = () => {
 												flagCell(cell);
 											}}
 											px="0"
+											p="10%"
 											_focus={{ boxShadow: "none" }}>
 											{getButtonContent(cell, showMines)}
 										</Button>

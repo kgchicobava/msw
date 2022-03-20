@@ -4,6 +4,7 @@ import { Level } from "../enums";
 import { difficultyLevels, defaultDifficulty } from "../constants";
 import { DifficultyLevel } from "../types";
 import { CustomModal } from "./CustomModal";
+import { useColor } from "../utils";
 
 interface IMenuProps {
 	setDifficultyLevel: (value: DifficultyLevel) => void;
@@ -12,18 +13,19 @@ interface IMenuProps {
 export const Menu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
 	const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
 	const [customModalOpen, setCustomModalOpen] = useState(false);
+	const colors = useColor();
 	return (
 		<>
-			<Center h="100vh">
+			<Center h="100vh" backgroundColor={colors.background}>
 				<Flex
-					bg="#C7D4D4"
+					bg={colors.primary}
 					direction="column"
 					w="370px"
 					py="33px"
-					boxShadow="0px 0px 20px #C7D4D4">
+					boxShadow={`0px 0px 20px ${colors.primary}`}>
 					<Text
 						textTransform="uppercase"
-						color="#3E4646"
+						color={colors.titleText}
 						fontSize="35px"
 						lineHeight="48px"
 						textAlign="center"
@@ -40,21 +42,23 @@ export const Menu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
 								border={
 									selectedLevel === elem.level
 										? ""
-										: "2px solid #3F423E"
+										: `2px solid ${colors.titleText}`
 								}
 								borderRadius="2px"
 								fontSize="30px"
 								fontFamily="Nunito-light"
-								color="#3F423E"
-								_focus={{ boxShadow: "0px 0px 20px #FFFFFF" }}
+								color={colors.titleText}
+								_focus={{
+									boxShadow: `0px 0px 20px ${colors.levelHalo}`,
+								}}
 								bg={
 									selectedLevel === elem.level
-										? "#FFFFFF"
+										? colors.levelHighlight
 										: "transparent"
 								}
 								boxShadow={
 									selectedLevel === elem.level
-										? "0px 0px 20px #FFFFFF;"
+										? `0px 0px 20px ${colors.levelHalo}`
 										: ""
 								}>
 								{elem.name}
@@ -63,11 +67,11 @@ export const Menu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
 						<Button
 							w="140px"
 							h="50px"
-							border={"2px solid #3F423E"}
+							border={`2px solid ${colors.titleText}`}
 							borderRadius="2px"
 							fontSize="30px"
 							fontFamily="Nunito-light"
-							color="#3F423E"
+							color={colors.titleText}
 							onClick={() => setCustomModalOpen(true)}
 							_focus={{ boxShadow: "0px 0px 20px #FFFFFF" }}
 							bg={"transparent"}>
@@ -75,12 +79,12 @@ export const Menu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
 						</Button>
 					</VStack>
 					<Button
-						background="#3F423E"
+						background={colors.titleText}
 						borderRadius="2px"
 						w="245px"
 						height="50px"
 						alignSelf="center"
-						color="#F7F7FB"
+						color={colors.startText}
 						fontFamily="Nunito-medium"
 						fontSize="30px"
 						disabled={!selectedLevel}

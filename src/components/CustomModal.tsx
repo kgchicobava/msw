@@ -13,6 +13,7 @@ import {
 import { SliderInput } from "./SliderInput";
 import { DifficultyLevel } from "../types";
 import { Level } from "../enums";
+import { useColor } from "../utils";
 
 interface ICustomModalProps {
 	isOpen: boolean;
@@ -29,6 +30,7 @@ export const CustomModal: React.FC<ICustomModalProps> = ({
 	const [height, setHeight] = useState(10);
 	const [numberOfMines, setNumberOfMines] = useState(10);
 	const [maxPossibleMines, setMaxPossibleMines] = useState(10);
+	const colors = useColor();
 
 	useEffect(() => {
 		setMaxPossibleMines(height * width - 9);
@@ -40,11 +42,11 @@ export const CustomModal: React.FC<ICustomModalProps> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
-			<ModalContent bg="#C7D4D4">
+			<ModalContent bg={colors.primary}>
 				<ModalBody py="32px">
 					<VStack>
 						<Text
-							color="#4A4F49"
+							color={colors.titleText}
 							fontFamily="Nunito-medium"
 							fontSize="50px"
 							lineHeight="68px"
@@ -82,7 +84,7 @@ export const CustomModal: React.FC<ICustomModalProps> = ({
 								fontFamily="Nunito-light"
 								w="150px"
 								height="50px"
-								background="white"
+								background={colors.availableCell}
 								borderRadius="0"
 								fontWeight={300}
 								onClick={onClose}>
@@ -96,7 +98,7 @@ export const CustomModal: React.FC<ICustomModalProps> = ({
 								fontFamily="Nunito-light"
 								w="150px"
 								height="50px"
-								background="white"
+								background={colors.availableCell}
 								borderRadius="0"
 								onClick={() =>
 									onStart({

@@ -8,6 +8,7 @@ import {
 	SliderFilledTrack,
 	Text,
 } from "@chakra-ui/react";
+import { useColor } from "../utils";
 
 interface ISliderInputProps {
 	label: string;
@@ -24,9 +25,13 @@ export const SliderInput: React.FC<ISliderInputProps> = ({
 	setValue,
 	value,
 }) => {
+	const colors = useColor();
 	return (
 		<>
-			<Text color="#4A4F49" fontSize="15px" fontFamily="Nunito-light">
+			<Text
+				color={colors.titleText}
+				fontSize="15px"
+				fontFamily="Nunito-light">
 				{label}
 			</Text>
 			<HStack>
@@ -39,7 +44,7 @@ export const SliderInput: React.FC<ISliderInputProps> = ({
 					min={1}
 					max={max}>
 					<SliderTrack>
-						<SliderFilledTrack bg="#4A4F49" />
+						<SliderFilledTrack bg={colors.titleText} />
 					</SliderTrack>
 					<SliderThumb />
 				</Slider>
@@ -50,7 +55,7 @@ export const SliderInput: React.FC<ISliderInputProps> = ({
 					min={1}
 					max={max}
 					textAlign="center"
-					color="#4A4F49"
+					color={colors.titleText}
 					fontFamily="Nunito-light"
 					onChange={value => setValue(+value.target.value)}
 				/>

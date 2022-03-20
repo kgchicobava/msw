@@ -6,6 +6,19 @@ const config: ThemeConfig = {
 	useSystemColorMode: false,
 };
 
+const colors = {
+	primary_light: "#C7D4D4",
+	primary_dark: "#576262",
+	background_light: "#E5E5E5",
+	background_dark: "#141415",
+	empty_cell_light: "#EAEEEE",
+	empty_cell_dark: "#3E4646",
+	available_cell_light: "white",
+	available_cell_dark: "#EEF0ED",
+	title_text_light: "#3F423E",
+	title_text_dark: "#EEF0ED",
+};
+
 const Button = {
 	baseStyle: (props: any) => ({
 		fontWeight: "bold",
@@ -26,6 +39,6 @@ const Button = {
 	},
 };
 
-const theme = extendTheme({ config });
+const theme = extendTheme({ config, colors });
 
 export default theme;
