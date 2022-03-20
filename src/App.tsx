@@ -21,6 +21,8 @@ import { ReactComponent as MenuIcon } from "./assets/menu.svg";
 import { ReactComponent as ReplayIcon } from "./assets/replay.svg";
 import { plantMines } from "./utils/plantMines";
 import { useColor } from "./utils";
+import { ReactComponent as MineCountIcon } from "./assets/mine_count.svg";
+import { ReactComponent as TimeCountIcon } from "./assets/time_count.svg";
 
 let timerId: NodeJS.Timeout;
 
@@ -48,7 +50,9 @@ const App: React.FC = () => {
 		setBoard(newBoard);
 		setBombsPlanted(false);
 		timerId = setInterval(() => {
-			setTimeElapsed(prev => ++prev);
+			if (timeElapsed <= 999) {
+				setTimeElapsed(prev => ++prev);
+			}
 		}, 1000);
 	};
 
@@ -235,17 +239,22 @@ const App: React.FC = () => {
 							<Center
 								bg={colors.availableCell}
 								h="50px"
-								w="100px"
+								w="150px"
 								borderRadius="2px">
-								<Text
-									color="#141415"
-									fontFamily="Nunito-light"
-									fontSize="30px"
-									lineHeight="40px">
-									{(minesLeft / 100)
-										.toFixed(2)
-										.replace(".", "")}
-								</Text>
+								<HStack>
+									<Text color={colors.primary}>
+										<MineCountIcon />
+									</Text>
+									<Text
+										color="#141415"
+										fontFamily="Nunito-light"
+										fontSize="30px"
+										lineHeight="40px">
+										{(minesLeft / 100)
+											.toFixed(2)
+											.replace(".", "")}
+									</Text>
+								</HStack>
 							</Center>
 							<Center
 								bg={colors.emptyCell}
@@ -270,17 +279,22 @@ const App: React.FC = () => {
 							<Center
 								bg={colors.availableCell}
 								h="50px"
-								w="100px"
+								w="150px"
 								borderRadius="2px">
-								<Text
-									color="#141415"
-									fontFamily="Nunito-light"
-									fontSize="30px"
-									lineHeight="40px">
-									{(timeElapsed / 100)
-										.toFixed(2)
-										.replace(".", "")}
-								</Text>
+								<HStack>
+									<Text
+										color="#141415"
+										fontFamily="Nunito-light"
+										fontSize="30px"
+										lineHeight="40px">
+										{(timeElapsed / 100)
+											.toFixed(2)
+											.replace(".", "")}
+									</Text>
+									<Text color={colors.primary}>
+										<TimeCountIcon />
+									</Text>
+								</HStack>
 							</Center>
 						</HStack>
 						<Grid
