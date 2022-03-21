@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Flex, Button, Text, VStack, Center } from "@chakra-ui/react";
-import { Level } from "../enums";
-import { difficultyLevels, defaultDifficulty } from "../constants";
-import { DifficultyLevel } from "../types";
-import { CustomModal } from "./CustomModal";
+import { Level } from "../constants/enums";
+import { difficultyLevels, defaultDifficulty } from "../constants/constants";
+import { DifficultyLevel } from "../types/types";
+import { CustomModal } from "../modals/CustomModal";
 import { useColor } from "../utils";
 
 interface IMenuProps {
 	setDifficultyLevel: (value: DifficultyLevel) => void;
 }
 
-export const Menu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
+export const MainMenu: React.FC<IMenuProps> = ({ setDifficultyLevel }) => {
 	const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
 	const [customModalOpen, setCustomModalOpen] = useState(false);
 	const colors = useColor();

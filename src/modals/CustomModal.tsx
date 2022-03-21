@@ -10,9 +10,9 @@ import {
 	ModalOverlay,
 	Box,
 } from "@chakra-ui/react";
-import { SliderInput } from "./SliderInput";
-import { DifficultyLevel } from "../types";
-import { Level } from "../enums";
+import { SliderInput } from "../components/SliderInput";
+import { DifficultyLevel } from "../types/types";
+import { Level } from "../constants/enums";
 import { useColor } from "../utils";
 
 interface ICustomModalProps {

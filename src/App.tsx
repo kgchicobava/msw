@@ -1,28 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
-import {
-	HStack,
-	VStack,
-	Button,
-	Text,
-	Box,
-	Center,
-	useColorMode,
-	IconButton,
-	Grid,
-} from "@chakra-ui/react";
-import { Cell, DifficultyLevel } from "./types";
-import { CellState } from "./enums";
+import { Button, Box, Center, Grid } from "@chakra-ui/react";
+import { Cell, DifficultyLevel } from "./types/types";
+import { CellState } from "./constants/enums";
 import { generateBoard, getSurroundTiles, getButtonContent } from "./utils";
-import { Menu, VictoryModal } from "./components";
-import { defaultDifficulty } from "./constants";
-import { ReactComponent as ThemeIcon } from "./assets/theme.svg";
-import { ReactComponent as MenuIcon } from "./assets/menu.svg";
-import { ReactComponent as ReplayIcon } from "./assets/replay.svg";
+import { MainMenu, QuickMenu, Stats } from "./components";
+import { VictoryModal } from "./modals";
+import { defaultDifficulty } from "./constants/constants";
 import { plantMines } from "./utils/plantMines";
 import { useColor } from "./utils";
-import { ReactComponent as MineCountIcon } from "./assets/mine_count.svg";
-import { ReactComponent as TimeCountIcon } from "./assets/time_count.svg";
 
 let timerId: NodeJS.Timeout;
 
@@ -30,7 +16,7 @@ const App: React.FC = () => {
 	const [board, setBoard] = useState<Cell[][]>([]);
 	const [showMines, setShowMines] = useState(false);
 	const [minesLeft, setMinesLeft] = useState(defaultDifficulty.numberOfMines);
-	const [timeElapsed, setTimeElapsed] = useState(0);
+	// const [timeElapsed, setTimeElapsed] = useState(0);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [difficultyLevel, setDifficultyLevel] =
 		useState<DifficultyLevel>(defaultDifficulty);
@@ -41,19 +27,15 @@ const App: React.FC = () => {
 
 	const startGame = (level: DifficultyLevel) => {
 		setShowMines(false);
-		setTimeElapsed(0);
-		const newBoard = generateBoard(
-			level.xSide,
-			level.ySide,
-			level.numberOfMines,
-		);
+		// setTimeElapsed(0);
+		const newBoard = generateBoard(level.xSide, level.ySide);
 		setBoard(newBoard);
 		setBombsPlanted(false);
-		timerId = setInterval(() => {
-			if (timeElapsed <= 999) {
-				setTimeElapsed(prev => ++prev);
-			}
-		}, 1000);
+		// timerId = setInterval(() => {
+		// 	if (timeElapsed <= 999) {
+		// 		setTimeElapsed(prev => ++prev);
+		// 	}
+		// }, 1000);
 	};
 
 	const plantBombs = (cell: Cell) => {
@@ -172,12 +154,15 @@ const App: React.FC = () => {
 		return colors.emptyCell;
 	};
 
-	const { toggleColorMode } = useColorMode();
+	const onReplay = () => {
+		setMinesLeft(difficultyLevel.numberOfMines);
+		startGame(difficultyLevel);
+	};
 
 	return (
 		<>
 			{!gameStarted ? (
-				<Menu
+				<MainMenu
 					setDifficultyLevel={value => {
 						setDifficultyLevel(value);
 						setGameStarted(true);
@@ -194,109 +179,15 @@ const App: React.FC = () => {
 						p="24px 30px"
 						position="relative"
 						boxShadow={`0px 0px 20px ${colors.primary}`}>
-						<VStack position="absolute" left="-60px" top="0">
-							<IconButton
-								aria-label="Menu"
-								h="50px"
-								w="50px"
-								borderRadius="3px"
-								onClick={() => {
-									setGameStarted(false);
-								}}
-								background={colors.primary}
-								boxShadow={`0px 0px 20px ${colors.primary}`}>
-								<MenuIcon />
-							</IconButton>
-							<IconButton
-								aria-label="Switch theme"
-								borderRadius="3px"
-								onClick={toggleColorMode}
-								h="50px"
-								w="50px"
-								background={colors.primary}
-								boxShadow={`0px 0px 20px ${colors.primary}`}>
-								<ThemeIcon />
-							</IconButton>
-							{showMines && (
-								<IconButton
-									aria-label="Replay"
-									borderRadius="3px"
-									h="50px"
-									w="50px"
-									background={colors.primary}
-									onClick={() => {
-										setMinesLeft(
-											difficultyLevel.numberOfMines,
-										);
-										startGame(difficultyLevel);
-									}}
-									boxShadow={`0px 0px 20px ${colors.primary}`}>
-									<ReplayIcon />
-								</IconButton>
-							)}
-						</VStack>
-						<HStack mb="30px">
-							<Center
-								bg={colors.availableCell}
-								h="50px"
-								w="150px"
-								borderRadius="2px">
-								<HStack>
-									<Text color={colors.primary}>
-										<MineCountIcon />
-									</Text>
-									<Text
-										color="#141415"
-										fontFamily="Nunito-light"
-										fontSize="30px"
-										lineHeight="40px">
-										{(minesLeft / 100)
-											.toFixed(2)
-											.replace(".", "")}
-									</Text>
-								</HStack>
-							</Center>
-							<Center
-								bg={colors.emptyCell}
-								height="50px"
-								flex={1}
-								borderRadius="2px">
-								<Text
-									textTransform="uppercase"
-									fontSize="25px"
-									fontFamily="Nunito-medium"
-									lineHeight="34px"
-									color={colors.titleText}
-									onClick={ev =>
-										console.log(
-											ev.detail,
-											"easter egg event",
-										)
-									}>
-									Minesweeper
-								</Text>
-							</Center>
-							<Center
-								bg={colors.availableCell}
-								h="50px"
-								w="150px"
-								borderRadius="2px">
-								<HStack>
-									<Text
-										color="#141415"
-										fontFamily="Nunito-light"
-										fontSize="30px"
-										lineHeight="40px">
-										{(timeElapsed / 100)
-											.toFixed(2)
-											.replace(".", "")}
-									</Text>
-									<Text color={colors.primary}>
-										<TimeCountIcon />
-									</Text>
-								</HStack>
-							</Center>
-						</HStack>
+						<QuickMenu
+							onReplay={onReplay}
+							setGameStarted={setGameStarted}
+							showMines={showMines}
+						/>
+						<Stats
+							minesLeft={minesLeft}
+							// timeElapsed={timeElapsed}
+						/>
 						<Grid
 							templateColumns={`repeat(${difficultyLevel.ySide}, auto)`}
 							templateRows={`repeat(${difficultyLevel.xSide}, auto)`}
@@ -315,6 +206,7 @@ const App: React.FC = () => {
 											pointerEvents={
 												showMines ? "none" : "all"
 											}
+											transition="all 0s"
 											backgroundColor={getCellBg(cell)}
 											fontSize="30px"
 											color="#3F423E"
@@ -344,8 +236,7 @@ const App: React.FC = () => {
 				}}
 				onRepeat={() => {
 					setVictoryModalOpen(false);
-					setMinesLeft(difficultyLevel.numberOfMines);
-					startGame(difficultyLevel);
+					onReplay();
 				}}
 				onClose={() => setVictoryModalOpen(false)}
 			/>

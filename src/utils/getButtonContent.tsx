@@ -1,8 +1,8 @@
 import React from "react";
 import { ReactComponent as MineIcon } from "../assets/mine.svg";
 import { ReactComponent as FlagIcon } from "../assets/flag.svg";
-import { Cell } from "../types";
-import { CellState } from "../enums";
+import { Cell } from "../types/types";
+import { CellState } from "../constants/enums";
 
 export const getButtonContent = (cell: Cell, showMines: boolean) => {
 	if (showMines) {

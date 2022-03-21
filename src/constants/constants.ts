@@ -1,5 +1,5 @@
 import { Level } from "./enums";
-import { DifficultyLevel } from "./types";
+import { DifficultyLevel } from "../types/types";
 
 export const difficultyLevels: DifficultyLevel[] = [
 	{

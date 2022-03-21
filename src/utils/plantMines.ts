@@ -1,5 +1,5 @@
 import { randomNumber } from "./randomNumber";
-import { Point, Cell } from "../types";
+import { Point, Cell } from "../types/types";
 
 export const plantMines = (
 	numberOfMines: number,

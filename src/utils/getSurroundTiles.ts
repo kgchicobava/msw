@@ -1,4 +1,4 @@
-import { Cell } from "../types";
+import { Cell } from "../types/types";
 
 export const getSurroundTiles = (cell: Cell, board: Cell[][]) => {
 	const surroundTiles = [];

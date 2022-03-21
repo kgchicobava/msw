@@ -1,4 +1,4 @@
-import { CellState, Level } from "./enums";
+import { CellState, Level } from "../constants/enums";
 
 export type Point = {
 	x: number;
