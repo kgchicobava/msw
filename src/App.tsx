@@ -10,13 +10,11 @@ import { defaultDifficulty } from "./constants/constants";
 import { plantMines } from "./utils/plantMines";
 import { useColor } from "./utils";
 
-let timerId: NodeJS.Timeout;
-
 const App: React.FC = () => {
 	const [board, setBoard] = useState<Cell[][]>([]);
 	const [showMines, setShowMines] = useState(false);
 	const [minesLeft, setMinesLeft] = useState(defaultDifficulty.numberOfMines);
-	// const [timeElapsed, setTimeElapsed] = useState(0);
+	const [gameStartedAt, setGameStartedAt] = useState(0);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [difficultyLevel, setDifficultyLevel] =
 		useState<DifficultyLevel>(defaultDifficulty);
@@ -27,15 +25,10 @@ const App: React.FC = () => {
 
 	const startGame = (level: DifficultyLevel) => {
 		setShowMines(false);
-		// setTimeElapsed(0);
 		const newBoard = generateBoard(level.xSide, level.ySide);
 		setBoard(newBoard);
 		setBombsPlanted(false);
-		// timerId = setInterval(() => {
-		// 	if (timeElapsed <= 999) {
-		// 		setTimeElapsed(prev => ++prev);
-		// 	}
-		// }, 1000);
+		setGameStartedAt(new Date().getTime());
 	};
 
 	const plantBombs = (cell: Cell) => {
@@ -81,7 +74,7 @@ const App: React.FC = () => {
 
 	const revealMines = () => {
 		setShowMines(true);
-		clearInterval(timerId);
+		setGameStartedAt(0);
 	};
 
 	const checkWin = () => {
@@ -96,7 +89,7 @@ const App: React.FC = () => {
 		);
 		if (win) {
 			setVictoryModalOpen(true);
-			clearInterval(timerId);
+			setGameStartedAt(0);
 		}
 	};
 
@@ -186,7 +179,7 @@ const App: React.FC = () => {
 						/>
 						<Stats
 							minesLeft={minesLeft}
-							// timeElapsed={timeElapsed}
+							gameStartedAt={gameStartedAt}
 						/>
 						<Grid
 							templateColumns={`repeat(${difficultyLevel.ySide}, auto)`}

@@ -6,21 +6,44 @@ import { ReactComponent as TimeCountIcon } from "../assets/time_count.svg";
 
 interface IStatsProps {
 	minesLeft: number;
-	timeElapsed?: number;
+	gameStartedAt: number;
 }
 
-export const Stats: React.FC<IStatsProps> = ({ minesLeft }) => {
+let timerId: NodeJS.Timer;
+
+export const Stats: React.FC<IStatsProps> = ({ minesLeft, gameStartedAt }) => {
 	const colors = useColor();
-	// https://stackoverflow.com/questions/37949981/call-child-method-from-parent
 	const [timeElapsed, setTimeElapsed] = useState(0);
+	const [timeFromClick, setTimeFromClick] = useState(0);
+	const [clickedTimes, setClickedTimes] = useState(0);
 
 	useEffect(() => {
-		const timerId = setInterval(() => {
-			if (timeElapsed <= 999) {
-				setTimeElapsed(prev => ++prev);
+		if (gameStartedAt) {
+			setTimeElapsed(0);
+			timerId = setInterval(() => {
+				if (timeElapsed <= 999) {
+					setTimeElapsed(prev => ++prev);
+				}
+			}, 1000);
+		} else {
+			clearInterval(timerId);
+		}
+	}, [gameStartedAt]);
+
+	const handleEasterEgg = () => {
+		if (timeFromClick === 0) {
+			setTimeFromClick(new Date().getTime());
+		}
+		setClickedTimes(prev => ++prev);
+		if (clickedTimes === 5) {
+			if (new Date().getTime() - timeFromClick < 1000) {
+				alert("Miss you, Kate ❤");
+				setTimeFromClick(0);
 			}
-		}, 1000);
-	}, []);
+			setTimeFromClick(0);
+			setClickedTimes(0);
+		}
+	};
 
 	return (
 		<HStack mb="30px">
@@ -52,6 +75,7 @@ export const Stats: React.FC<IStatsProps> = ({ minesLeft }) => {
 					fontSize="25px"
 					fontFamily="Nunito-medium"
 					lineHeight="34px"
+					onClick={handleEasterEgg}
 					color={colors.titleText}>
 					Minesweeper
 				</Text>
