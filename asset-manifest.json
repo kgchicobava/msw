@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/msw/static/css/main.731880aa.chunk.css",
+    "main.js": "/msw/static/js/main.7ae4e97a.chunk.js",
+    "main.js.map": "/msw/static/js/main.7ae4e97a.chunk.js.map",
+    "runtime-main.js": "/msw/static/js/runtime-main.68352c50.js",
+    "runtime-main.js.map": "/msw/static/js/runtime-main.68352c50.js.map",
+    "static/js/2.a8cc0d7b.chunk.js": "/msw/static/js/2.a8cc0d7b.chunk.js",
+    "static/js/2.a8cc0d7b.chunk.js.map": "/msw/static/js/2.a8cc0d7b.chunk.js.map",
+    "static/js/3.b5b9784d.chunk.js": "/msw/static/js/3.b5b9784d.chunk.js",
+    "static/js/3.b5b9784d.chunk.js.map": "/msw/static/js/3.b5b9784d.chunk.js.map",
+    "index.html": "/msw/index.html",
+    "static/css/main.731880aa.chunk.css.map": "/msw/static/css/main.731880aa.chunk.css.map",
+    "static/js/2.a8cc0d7b.chunk.js.LICENSE.txt": "/msw/static/js/2.a8cc0d7b.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/msw/static/media/Nunito-SemiBold.6a5a212c.ttf",
+    "static/media/flag.db9e601c.svg": "/msw/static/media/flag.db9e601c.svg",
+    "static/media/menu.83e140e8.svg": "/msw/static/media/menu.83e140e8.svg",
+    "static/media/mine.840c0e6d.svg": "/msw/static/media/mine.840c0e6d.svg",
+    "static/media/mine_count.b7f5cef8.svg": "/msw/static/media/mine_count.b7f5cef8.svg",
+    "static/media/replay.95a667e3.svg": "/msw/static/media/replay.95a667e3.svg",
+    "static/media/theme.776656c9.svg": "/msw/static/media/theme.776656c9.svg",
+    "static/media/time_count.4dcb9bae.svg": "/msw/static/media/time_count.4dcb9bae.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.68352c50.js",
+    "static/js/2.a8cc0d7b.chunk.js",
+    "static/css/main.731880aa.chunk.css",
+    "static/js/main.7ae4e97a.chunk.js"
+  ]
+}
