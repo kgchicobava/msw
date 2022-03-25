@@ -6,13 +6,11 @@ import { ReactComponent as MenuIcon } from "../assets/menu.svg";
 import { ReactComponent as ReplayIcon } from "../assets/replay.svg";
 
 interface IQuickMenuProps {
-	showMines: boolean;
 	setGameStarted: (value: boolean) => void;
 	onReplay: () => void;
 }
 
 export const QuickMenu: React.FC<IQuickMenuProps> = ({
-	showMines,
 	setGameStarted,
 	onReplay,
 }) => {
@@ -42,18 +40,16 @@ export const QuickMenu: React.FC<IQuickMenuProps> = ({
 				boxShadow={`0px 0px 20px ${colors.primary}`}>
 				<ThemeIcon />
 			</IconButton>
-			{showMines && (
-				<IconButton
-					aria-label="Replay"
-					borderRadius="3px"
-					h="50px"
-					w="50px"
-					background={colors.primary}
-					onClick={onReplay}
-					boxShadow={`0px 0px 20px ${colors.primary}`}>
-					<ReplayIcon />
-				</IconButton>
-			)}
+			<IconButton
+				aria-label="Replay"
+				borderRadius="3px"
+				h="50px"
+				w="50px"
+				background={colors.primary}
+				onClick={onReplay}
+				boxShadow={`0px 0px 20px ${colors.primary}`}>
+				<ReplayIcon />
+			</IconButton>
 		</VStack>
 	);
 };

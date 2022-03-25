@@ -20,6 +20,7 @@ const App: React.FC = () => {
 		useState<DifficultyLevel>(defaultDifficulty);
 	const [victoryModalOpen, setVictoryModalOpen] = useState(false);
 	const [bombsPlanted, setBombsPlanted] = useState(false);
+	const [victory, setVictory] = useState(false);
 
 	const colors = useColor();
 
@@ -28,6 +29,7 @@ const App: React.FC = () => {
 		const newBoard = generateBoard(level.xSide, level.ySide);
 		setBoard(newBoard);
 		setBombsPlanted(false);
+		setVictory(false);
 		setGameStartedAt(new Date().getTime());
 	};
 
@@ -88,6 +90,7 @@ const App: React.FC = () => {
 			),
 		);
 		if (win) {
+			setVictory(true);
 			setVictoryModalOpen(true);
 			setGameStartedAt(0);
 		}
@@ -175,7 +178,6 @@ const App: React.FC = () => {
 						<QuickMenu
 							onReplay={onReplay}
 							setGameStarted={setGameStarted}
-							showMines={showMines}
 						/>
 						<Stats
 							minesLeft={minesLeft}
@@ -197,7 +199,9 @@ const App: React.FC = () => {
 											fontFamily="Nunito-medium"
 											key={index}
 											pointerEvents={
-												showMines ? "none" : "all"
+												showMines || victory
+													? "none"
+													: "all"
 											}
 											transition="all 0s"
 											backgroundColor={getCellBg(cell)}
@@ -212,7 +216,11 @@ const App: React.FC = () => {
 											px="0"
 											p="10%"
 											_focus={{ boxShadow: "none" }}>
-											{getButtonContent(cell, showMines)}
+											{getButtonContent(
+												cell,
+												showMines,
+												victory,
+											)}
 										</Button>
 									))}
 								</React.Fragment>

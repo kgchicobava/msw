@@ -7,6 +7,8 @@ import {
 	Button,
 	Text,
 	HStack,
+	CloseButton,
+	ModalHeader,
 } from "@chakra-ui/react";
 import { useColor } from "../utils";
 import confetti from "canvas-confetti";
@@ -59,7 +61,10 @@ export const VictoryModal: React.FC<IVictoryModalProps> = ({
 		<>
 			<Modal isOpen={isOpen} onClose={onClose} isCentered>
 				<ModalContent bg={colors.primary}>
-					<ModalBody py="32px">
+					<ModalHeader pb="0">
+						<CloseButton onClick={onClose} ml="auto" />
+					</ModalHeader>
+					<ModalBody pb="32px">
 						<VStack>
 							<Text
 								color={colors.titleText}
