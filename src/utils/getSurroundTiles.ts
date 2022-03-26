@@ -1,6 +1,6 @@
 import { Cell } from "../types/types";
 
-export const getSurroundTiles = (cell: Cell, board: Cell[][]) => {
+export const getSurroundTiles = (cell: Cell, board: Cell[][]): Cell[] => {
 	const surroundTiles = [];
 	for (let xOffset = -1; xOffset <= 1; xOffset++) {
 		for (let yOffset = -1; yOffset <= 1; yOffset++) {

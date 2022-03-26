@@ -205,7 +205,9 @@ const App: React.FC = () => {
 											}
 											transition="all 0s"
 											backgroundColor={getCellBg(cell)}
-											fontSize="30px"
+											fontSize={`calc((80vh / ${
+												difficultyLevel.xSide + 4
+											}))`}
 											color="#3F423E"
 											fontWeight={300}
 											onClick={() => clickOnCell(cell)}

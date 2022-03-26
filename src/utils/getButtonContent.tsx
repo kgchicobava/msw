@@ -8,7 +8,7 @@ export const getButtonContent = (
 	cell: Cell,
 	showMines: boolean,
 	victory: boolean,
-) => {
+): JSX.Element | null | number | string => {
 	if (showMines) {
 		if (cell.isMine) {
 			return <MineIcon />;

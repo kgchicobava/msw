@@ -1,6 +1,6 @@
 import { useColorModeValue } from "@chakra-ui/react";
 
-export function useColor() {
+export function useColor(): Record<string, string> {
 	const primary = useColorModeValue("#C7D4D4", "#576262");
 	const background = useColorModeValue("#E5E5E5", "#141415");
 	const emptyCell = useColorModeValue("#EAEEEE", "#3E4646");

@@ -50,7 +50,7 @@ export const Stats: React.FC<IStatsProps> = ({ minesLeft, gameStartedAt }) => {
 			<Center
 				bg={colors.availableCell}
 				h="50px"
-				w="150px"
+				px="1rem"
 				borderRadius="2px">
 				<HStack>
 					<Text color={colors.primary}>
@@ -59,7 +59,7 @@ export const Stats: React.FC<IStatsProps> = ({ minesLeft, gameStartedAt }) => {
 					<Text
 						color="#141415"
 						fontFamily="Nunito-light"
-						fontSize="30px"
+						fontSize="1.5rem"
 						lineHeight="40px">
 						{(minesLeft / 100).toFixed(2).replace(".", "")}
 					</Text>
@@ -72,7 +72,7 @@ export const Stats: React.FC<IStatsProps> = ({ minesLeft, gameStartedAt }) => {
 				borderRadius="2px">
 				<Text
 					textTransform="uppercase"
-					fontSize="25px"
+					fontSize="1.5rem"
 					fontFamily="Nunito-medium"
 					lineHeight="34px"
 					onClick={handleEasterEgg}
@@ -83,13 +83,13 @@ export const Stats: React.FC<IStatsProps> = ({ minesLeft, gameStartedAt }) => {
 			<Center
 				bg={colors.availableCell}
 				h="50px"
-				w="150px"
+				px="1rem"
 				borderRadius="2px">
 				<HStack>
 					<Text
 						color="#141415"
 						fontFamily="Nunito-light"
-						fontSize="30px"
+						fontSize="1.5rem"
 						lineHeight="40px">
 						{(timeElapsed / 100).toFixed(2).replace(".", "")}
 					</Text>
